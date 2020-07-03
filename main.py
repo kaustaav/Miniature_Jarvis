@@ -1,6 +1,5 @@
-# from functions import TimeNow
 import pyttsx3
-import speech_recognition as sr
+# import speech_recognition as sr
 import re
 import datetime
 import os
@@ -45,6 +44,7 @@ def takeCommand():
     # except Exception as e:
     #     return None
     # return autocorrect(query).lower()
+
 
 """
     autocorrect functions begins from here
@@ -100,22 +100,44 @@ def add_wordlist():
 """
 
 
-def TimeNow(query):
-    if 'exact' in query or 'accurate' in query:
-        timestr = datetime.datetime.now().strftime("%H:%M:%S")
-    else:
-        timestr = datetime.datetime.now().strftime("%H:%M")
-    speak(f"Sir, it is {timestr}")
+class FuncClass():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute():
+        pass
 
 
-def wishMe():
-    hour = int(datetime.datetime.now().hour)
-    if(hour < 12):
-        speak("Good Morning!")
-    elif(hour < 18):
-        speak("Good Afternoon!")
-    else:
-        speak("Good Evening!")
+class wishMe():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        hour = int(datetime.datetime.now().hour)
+        if hour >= 5 and hour < 12:
+            speak("Good Morning!")
+        elif(hour >= 12 and hour < 18):
+            speak("Good Afternoon!")
+        else:
+            speak("Good Evening!")
+
+
+class TimeNow():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        if 'exact' in self.query or 'accurate' in self.query:
+            timestr = datetime.datetime.now().strftime("%H:%M:%S")
+        else:
+            timestr = datetime.datetime.now().strftime("%H:%M")
+        speak(f"Sir, it is {timestr}")
 
 
 def hi():
@@ -148,7 +170,8 @@ def wikisearch(query):
 
 
 def playMusic(query):
-    speak("Sir, where should i play from?...offline music, Ganna, YouTube or Spotify")
+    speak("Sir, where should i play from?...offline music, Ganna, YouTube or\
+ Spotify")
     source = takeCommand()
     if "ganna" in source:
         speak("Opening Ganna")
@@ -158,7 +181,8 @@ def playMusic(query):
     elif "spotify" in source:
         speak("Opening Spotify")
         webbrowser.get('windows-default').open("https://www.spotify.com/in")
-    elif "offline" in source or "ofline" in source or "of line" in source or "off line" in source:
+    elif("offline" in source or "ofline" in source or "of line" in source or
+         "off line" in source):
         music_dir = "D:/Music"
         songs = os.listdir(music_dir)
         print(songs)
@@ -173,11 +197,15 @@ def collect_words_from_book():
 
 
 class Shut_Down():
-    
-    def __init__(self):
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
         speak("Saving Changes...")
         self.save_words()
-        self.turn_off()
+        self.turn_off()        
 
     def save_words(self):
         s = '\n'
@@ -193,38 +221,50 @@ class Shut_Down():
 
 
 """
-    The main function begins from here
+    Defining the type of command
 """
+
+
+class Command():
+
+    def __init__(self, inc_query):
+        self.inc_query = inc_query
+        self.query = autocorrect(self.inc_query)
+
+    def typeDetect(self):
+        if "hello jarvis" in self.query or "hey jarvis" in self.query:
+            return wishMe(self.inc_query, self.query)
+        # elif "wikipedia" in query:
+        #     return wikisearch(inc_query, query)
+        elif "the time" in self.query:
+            return TimeNow(self.inc_query, self.query)
+        # elif "open google" in query:
+        #     return openGoogle(inc_query, query)
+        # elif "play music" in query:
+        #     return playMusic(inc_query, query)
+        # elif "open youtube" in query:
+        #     return openYtube(inc_query, query)
+        # elif "open stackoverflow" in query:
+        #     return openSOF(inc_query, query)
+        # elif "add keyword" in query:
+        #     return add_wordlist(inc_query, query)
+        # elif "read" in query and "book" in query:
+        #     return collect_words_from_book(inc_query, query)
+        elif "shut down" in self.query or "shutdown" in self.query:
+            return Shut_Down(self.inc_query, self.query)
 
 
 def main():
     load_Keywords()
     hi()
     while(True):
-        query = autocorrect(takeCommand())
+        query = takeCommand()
         if query is None:
             print("Sorry, I didn't get it!")
         else:
-            if "hello jarvis" in query or "hey jarvis" in query:
-                wishMe()
-            elif "wikipedia" in query:
-                wikisearch(query)
-            elif "the time" in query:
-                TimeNow(query)
-            elif "open google" in query:
-                openGoogle()
-            elif "play music" in query:
-                playMusic(query)
-            elif "open youtube" in query:
-                openYtube()
-            elif "open stackoverflow" in query:
-                openSOF()
-            elif "add keyword" in query:
-                add_wordlist()
-            elif "read" in query and "book" in query:
-                collect_words_from_book() 
-            elif "shut down" in query or "shutdown" in query:
-                Shut_Down()
+            task = Command(query)
+            tasktype = task.typeDetect()
+            tasktype.execute()
 
 
 if __name__ == "__main__":
