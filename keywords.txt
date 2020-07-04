@@ -16,6 +16,4 @@ tywin
 viserys
 craster
 rhaegal
-
-
-
+coronavirus

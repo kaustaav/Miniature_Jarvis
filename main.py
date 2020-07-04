@@ -8,6 +8,12 @@ import wikipedia
 from spellchecker import SpellChecker
 # import smtplib
 
+url_google = "http://www.google.com"
+url_ganna = "https://gaana.com"
+url_youtube = "http://www.youtube.com"
+url_spotify = "https://www.spotify.com/in"
+url_SOF = "https://stackoverflow.com"
+
 """
     List of neccesary global parameters
     that we need access throughout the code
@@ -86,10 +92,7 @@ def add_keyword(keyword):
         new_wordlist.append(keyword)
 
 
-def add_wordlist():
-    speak("Enter the keyword")
-    query = input("Enter the keyword: ").lower()
-    query = query.split()
+def add_wordlist(query):
     speak("Adding keyword")
     for word in query:
         add_keyword(word)
@@ -153,7 +156,7 @@ class openGoogle():
 
     def execute(self):
         speak("Opening Google")
-        webbrowser.get('windows-default').open("http://www.google.com")
+        webbrowser.get('windows-default').open(url_google)
 
 
 class openYtube():
@@ -164,7 +167,7 @@ class openYtube():
 
     def execute(self):
         speak("Opening Youtube")
-        webbrowser.get('windows-default').open("http://www.youtube.com")
+        webbrowser.get('windows-default').open(url_youtube)
 
 
 class openSOF():
@@ -175,7 +178,7 @@ class openSOF():
 
     def execute(self):
         speak("Opening StackOverFlow")
-        webbrowser.get('windows-default').open("https://stackoverflow.com")
+        webbrowser.get('windows-default').open(url_SOF)
 
 
 class wikisearch():
@@ -206,12 +209,12 @@ class playMusic():
         source = takeCommand()
         if "ganna" in source:
             speak("Opening Ganna")
-            webbrowser.get('windows-default').open("https://gaana.com")
+            webbrowser.get('windows-default').open(url_ganna)
         elif "youtube" in source:
             openYtube()
         elif "spotify" in source:
             speak("Opening Spotify")
-            webbrowser.get('windows-default').open("https://www.spotify.com/in")
+            webbrowser.get('windows-default').open(url_spotify)
         elif("offline" in source or "ofline" in source or "of line" in source
              or "off line" in source):
             music_dir = "D:/Music"
@@ -231,6 +234,23 @@ class collect_words_from_book():
         path = path.replace('\\', '/')
         print(path)
         speak("To-do list: you have not added method to capture the words yet")
+
+
+class Add_wordlist():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        global spell
+        wordlist = self.inc_query.split()
+        correction = self.query.split()
+        for i in range(len(wordlist)):
+            correct = correction[i]
+            if(correct == 'add' or correct == 'keyword'):
+                wordlist[i] = correct
+        add_wordlist(wordlist)
 
 
 class Shut_Down():
@@ -283,8 +303,8 @@ class Command():
             return openYtube(self.inc_query, self.query)
         elif "open stackoverflow" in self.query:
             return openSOF(self.inc_query, self.query)
-        # elif "add keyword" in self.query:
-        #     return add_wordlist(self.inc_query, self.query)
+        elif "add" in self.query and "keyword" in self.query:
+            return Add_wordlist(self.inc_query, self.query)
         elif "read" in self.query and "book" in self.query:
             return collect_words_from_book()
         elif "shut down" in self.query or "shutdown" in self.query:
