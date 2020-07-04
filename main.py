@@ -43,7 +43,7 @@ def takeCommand():
     #     print(f"You Said: {query}\n")
     # except Exception as e:
     #     return None
-    # return autocorrect(query).lower()
+    # return remove_repeat(query).lower()
 
 
 """
@@ -145,55 +145,92 @@ def hi():
     speak("Hi Sir, I am Jarvis")
 
 
-def openGoogle():
-    speak("Opening Google")
-    webbrowser.get('windows-default').open("http://www.google.com")
+class openGoogle():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        speak("Opening Google")
+        webbrowser.get('windows-default').open("http://www.google.com")
 
 
-def openYtube():
-    speak("Opening Youtube")
-    webbrowser.get('windows-default').open("http://www.youtube.com")
+class openYtube():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        speak("Opening Youtube")
+        webbrowser.get('windows-default').open("http://www.youtube.com")
 
 
-def openSOF():
-    speak("Opening StackOverFlow")
-    webbrowser.get('windows-default').open("https://stackoverflow.com")
+class openSOF():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        speak("Opening StackOverFlow")
+        webbrowser.get('windows-default').open("https://stackoverflow.com")
 
 
-def wikisearch(query):
-    speak("searching wikipedia")
-    query = query.replace("wikipedia", "")
-    results = wikipedia.summary(query, sentences=2)
-    speak("According to wikipedia")
-    speak(results)
-    speak("would you like to know more?")
+class wikisearch():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        speak("searching wikipedia")
+        query = self.query.replace("wikipedia", "")
+        results = wikipedia.summary(query, sentences=2)
+        speak("According to wikipedia")
+        speak(results)
+        speak("would you like to know more?")
+        speak("Sorry sir, you have not added code to open wikipedia")
 
 
-def playMusic(query):
-    speak("Sir, where should i play from?...offline music, Ganna, YouTube or\
+class playMusic():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        speak("Sir, where should i play from?...offline music, Ganna, YouTube or\
  Spotify")
-    source = takeCommand()
-    if "ganna" in source:
-        speak("Opening Ganna")
-        webbrowser.get('windows-default').open("https://gaana.com")
-    elif "youtube" in source:
-        openYtube()
-    elif "spotify" in source:
-        speak("Opening Spotify")
-        webbrowser.get('windows-default').open("https://www.spotify.com/in")
-    elif("offline" in source or "ofline" in source or "of line" in source or
-         "off line" in source):
-        music_dir = "D:/Music"
-        songs = os.listdir(music_dir)
-        print(songs)
+        source = takeCommand()
+        if "ganna" in source:
+            speak("Opening Ganna")
+            webbrowser.get('windows-default').open("https://gaana.com")
+        elif "youtube" in source:
+            openYtube()
+        elif "spotify" in source:
+            speak("Opening Spotify")
+            webbrowser.get('windows-default').open("https://www.spotify.com/in")
+        elif("offline" in source or "ofline" in source or "of line" in source
+             or "off line" in source):
+            music_dir = "D:/Music"
+            songs = os.listdir(music_dir)
+            print(songs)
 
 
-def collect_words_from_book():
-    speak("Copy paste the path. I can only read from text files for now")
-    path = input("Enter the path: ")
-    path = path.replace('\\', '/')
-    print(path)
-    speak("To-do list: you have not added a method to capture the words yet")
+class collect_words_from_book():
+
+    def __init__(self, inc_query, query):
+        self.inc_query = inc_query
+        self.query = query
+
+    def execute(self):
+        speak("Copy paste the path. I can only read from text files for now")
+        path = input("Enter the path: ")
+        path = path.replace('\\', '/')
+        print(path)
+        speak("To-do list: you have not added method to capture the words yet")
 
 
 class Shut_Down():
@@ -205,7 +242,7 @@ class Shut_Down():
     def execute(self):
         speak("Saving Changes...")
         self.save_words()
-        self.turn_off()        
+        self.turn_off()
 
     def save_words(self):
         s = '\n'
@@ -234,22 +271,22 @@ class Command():
     def typeDetect(self):
         if "hello jarvis" in self.query or "hey jarvis" in self.query:
             return wishMe(self.inc_query, self.query)
-        # elif "wikipedia" in query:
-        #     return wikisearch(inc_query, query)
+        elif "wikipedia" in self.query:
+            return wikisearch(self.inc_query, self.query)
         elif "the time" in self.query:
             return TimeNow(self.inc_query, self.query)
-        # elif "open google" in query:
-        #     return openGoogle(inc_query, query)
-        # elif "play music" in query:
-        #     return playMusic(inc_query, query)
-        # elif "open youtube" in query:
-        #     return openYtube(inc_query, query)
-        # elif "open stackoverflow" in query:
-        #     return openSOF(inc_query, query)
-        # elif "add keyword" in query:
-        #     return add_wordlist(inc_query, query)
-        # elif "read" in query and "book" in query:
-        #     return collect_words_from_book(inc_query, query)
+        elif "open google" in self.query:
+            return openGoogle(self.inc_query, self.query)
+        elif "play music" in self.query:
+            return playMusic(self.inc_query, self.query)
+        elif "open youtube" in self.query:
+            return openYtube(self.inc_query, self.query)
+        elif "open stackoverflow" in self.query:
+            return openSOF(self.inc_query, self.query)
+        # elif "add keyword" in self.query:
+        #     return add_wordlist(self.inc_query, self.query)
+        elif "read" in self.query and "book" in self.query:
+            return collect_words_from_book()
         elif "shut down" in self.query or "shutdown" in self.query:
             return Shut_Down(self.inc_query, self.query)
 
