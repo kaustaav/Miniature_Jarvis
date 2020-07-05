@@ -1,12 +1,18 @@
 import pyttsx3
-# import speech_recognition as sr
 import re
 import datetime
 import os
 import webbrowser
 import wikipedia
 from spellchecker import SpellChecker
+import argparse
+# import aiml
+# import sys
 # import smtplib
+
+"""
+    List of URL's
+"""
 
 url_google = "http://www.google.com"
 url_ganna = "https://gaana.com"
@@ -19,11 +25,28 @@ url_SOF = "https://stackoverflow.com"
     that we need access throughout the code
 """
 
+mode = "text"
 spell = SpellChecker()
 new_wordlist = []
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
+engine.setProperty('voice', voices[1].id)
+
+"""
+    Set input mode (text/voice) for jarvis
+    to activate voice mode type '--voice' in command line
+    text mode is set as default
+"""
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    optional = parser.add_argument_group('params')
+    optional.add_argument('-v', '--voice', action='store_true', required=False,
+                          help="Enable voice mode")
+    arguments = parser.parse_args()
+    return arguments
+
 
 """
     Functions for speech to text and vice versa
@@ -35,30 +58,39 @@ def speak(audio):
     engine.runAndWait()
 
 
-def takeCommand():
-    return remove_repeat(input("Type your command: ").lower())
-    # r = sr.Recognizer()
-    # with sr.Microphone() as source:
-    #     print("Listening...")
-    #     r.adjust_for_ambient_noise(source)
-    #     r.pause_threshold = 1
-    #     audio = r.listen(source)
-    # try:
-    #     print("Recognizing...")
-    #     query = r.recognize_google(audio, language='en-in')
-    #     print(f"You Said: {query}\n")
-    # except Exception as e:
-    #     return None
-    # return remove_repeat(query).lower()
+def listen():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source)
+        print("Listening...")
+        audio = r.listen(source)
+    try:
+        query = r.recognize_google(audio)
+        print(query)
+        return query
+    except sr.UnknownValueError:
+        return listen()
+    except sr.RequestError as e:
+        print("Could not request results from " +
+              "Google Speech Recognition service; {0}".format(e))
+
+
+def raw_input():
+    query = input("Type your command: ")
+    return autocorrect(re.sub("(.)\\1{2,}", "\\1", query))
+
+
+def takeCommand(mode):
+    if mode == "voice":
+        response = listen()
+    else:
+        response = raw_input()
+    return response.lower()
 
 
 """
     autocorrect functions begins from here
 """
-
-
-def remove_repeat(query):
-    return re.sub("(.)\\1{2,}", "\\1", query)
 
 
 def autocorrect(query):
@@ -85,7 +117,6 @@ def load_Keywords():
 
 
 def add_keyword(keyword):
-    global spell
     global new_keyword
     if spell[keyword] == 0:
         spell.word_frequency.add(keyword)
@@ -105,8 +136,7 @@ def add_wordlist(query):
 
 class FuncClass():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute():
@@ -115,8 +145,7 @@ class FuncClass():
 
 class wishMe():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -131,8 +160,7 @@ class wishMe():
 
 class TimeNow():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -145,13 +173,12 @@ class TimeNow():
 
 def hi():
     # speak("Hello. I am Beymax, your personal healthcare companion")
-    speak("Hi Sir, I am Jarvis")
+    speak("Hello Sir, I am Jarvis.")
 
 
 class openGoogle():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -161,8 +188,7 @@ class openGoogle():
 
 class openYtube():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -172,8 +198,7 @@ class openYtube():
 
 class openSOF():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -183,30 +208,29 @@ class openSOF():
 
 class wikisearch():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
         speak("searching wikipedia")
         query = self.query.replace("wikipedia", "")
+        query = self.query.replace("search", "")
         results = wikipedia.summary(query, sentences=2)
         speak("According to wikipedia")
         speak(results)
-        speak("would you like to know more?")
-        speak("Sorry sir, you have not added code to open wikipedia")
+        # speak("would you like to know more?")
+        speak("Sorry sir, you have not added further code to open wikipedia")
 
 
 class playMusic():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
         speak("Sir, where should i play from?...offline music, Ganna, YouTube or\
  Spotify")
-        source = takeCommand()
+        source = takeCommand(mode)
         if "ganna" in source:
             speak("Opening Ganna")
             webbrowser.get('windows-default').open(url_ganna)
@@ -224,8 +248,7 @@ class playMusic():
 
 class collect_words_from_book():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -238,25 +261,23 @@ class collect_words_from_book():
 
 class Add_wordlist():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
-        global spell
-        wordlist = self.inc_query.split()
-        correction = self.query.split()
-        for i in range(len(wordlist)):
-            correct = correction[i]
-            if(correct == 'add' or correct == 'keyword'):
-                wordlist[i] = correct
-        add_wordlist(wordlist)
+        # wordlist = self.inc_query.split()
+        # correction = self.query.split()
+        # for i in range(len(wordlist)):
+        #     correct = correction[i]
+        #     if(correct == 'add' or correct == 'keyword'):
+        #         wordlist[i] = correct
+        # add_wordlist(wordlist)
+        add_wordlist(self.query)
 
 
 class Shut_Down():
 
-    def __init__(self, inc_query, query):
-        self.inc_query = inc_query
+    def __init__(self, query):
         self.query = query
 
     def execute(self):
@@ -284,44 +305,51 @@ class Shut_Down():
 
 class Command():
 
-    def __init__(self, inc_query):
-        self.inc_query = inc_query
-        self.query = autocorrect(self.inc_query)
+    def __init__(self, query):
+        self.query = query
 
     def typeDetect(self):
         if "hello jarvis" in self.query or "hey jarvis" in self.query:
-            return wishMe(self.inc_query, self.query)
+            return wishMe(self.query)
         elif "wikipedia" in self.query:
-            return wikisearch(self.inc_query, self.query)
+            return wikisearch(self.query)
         elif "the time" in self.query:
-            return TimeNow(self.inc_query, self.query)
+            return TimeNow(self.query)
         elif "open google" in self.query:
-            return openGoogle(self.inc_query, self.query)
+            return openGoogle(self.query)
         elif "play music" in self.query:
-            return playMusic(self.inc_query, self.query)
+            return playMusic(self.query)
         elif "open youtube" in self.query:
-            return openYtube(self.inc_query, self.query)
+            return openYtube(self.query)
         elif "open stackoverflow" in self.query:
-            return openSOF(self.inc_query, self.query)
+            return openSOF(self.query)
         elif "add" in self.query and "keyword" in self.query:
-            return Add_wordlist(self.inc_query, self.query)
+            return Add_wordlist(self.query)
         elif "read" in self.query and "book" in self.query:
-            return collect_words_from_book()
+            return collect_words_from_book(self.query)
         elif "shut down" in self.query or "shutdown" in self.query:
-            return Shut_Down(self.inc_query, self.query)
+            return Shut_Down(self.query)
 
 
 def main():
+    global mode
+    args = get_args()
+    if args.voice:
+        try:
+            import speech_recognition as sr
+            global sr
+            mode = "voice"
+        except ImportError:
+            print("\nInstall SpeechRecognition to use this feature." +
+                  "\nInitiating text mode\n")
+
     load_Keywords()
     hi()
     while(True):
-        query = takeCommand()
-        if query is None:
-            print("Sorry, I didn't get it!")
-        else:
-            task = Command(query)
-            tasktype = task.typeDetect()
-            tasktype.execute()
+        query = takeCommand(mode)
+        task = Command(query)
+        tasktype = task.typeDetect()
+        tasktype.execute()
 
 
 if __name__ == "__main__":
