@@ -6,7 +6,8 @@ import webbrowser
 import wikipedia
 from spellchecker import SpellChecker
 import argparse
-# import aiml
+import aiml
+import subprocess
 # import sys
 # import smtplib
 
@@ -75,7 +76,7 @@ def listen():
               "Google Speech Recognition service; {0}".format(e))
 
 
-def raw_input():
+def text_input():
     query = input("Type your command: ")
     return autocorrect(re.sub("(.)\\1{2,}", "\\1", query))
 
@@ -84,7 +85,7 @@ def takeCommand(mode):
     if mode == "voice":
         response = listen()
     else:
-        response = raw_input()
+        response = text_input()
     return response.lower()
 
 
@@ -275,17 +276,11 @@ class Add_wordlist():
         add_wordlist(self.query)
 
 
-class Shut_Down():
+def Shut_Down():
 
-    def __init__(self, query):
-        self.query = query
+    speak("Saving Changes...")
 
-    def execute(self):
-        speak("Saving Changes...")
-        self.save_words()
-        self.turn_off()
-
-    def save_words(self):
+    def save_words():
         s = '\n'
         new_words = s.join(new_wordlist)
         with open("./keywords.txt", "a") as f:
@@ -293,9 +288,11 @@ class Shut_Down():
             f.write(new_words)
             f.close()
 
-    def turn_off(self):
+    def turn_off():
         speak("Turning off...")
         exit()
+    save_words()
+    turn_off()
 
 
 """
@@ -342,14 +339,29 @@ def main():
         except ImportError:
             print("\nInstall SpeechRecognition to use this feature." +
                   "\nInitiating text mode\n")
+    kernel = aiml.Kernel()
 
-    load_Keywords()
+    if os.path.isfile("bot_brain.brn"):
+        kernel.bootstrap(brainFile="bot_brain.brn")
+    else:
+        kernel.bootstrap(learnFiles="std-startup.xml", commands="load aiml b")
+        kernel.saveBrain("bot_brain.brn")
     hi()
-    while(True):
+    load_Keywords()
+    while True:
         query = takeCommand(mode)
-        task = Command(query)
-        tasktype = task.typeDetect()
-        tasktype.execute()
+        response = kernel.respond(query)
+        print(response)
+        if '.py' in response:
+            print(1)
+            subprocess.call(["python", "shut_down.py"])
+        else:
+            speak(response)
+    # while(True):
+    #     query = takeCommand(mode)
+    #     task = Command(query)
+    #     tasktype = task.typeDetect()
+    #     tasktype.execute()
 
 
 if __name__ == "__main__":

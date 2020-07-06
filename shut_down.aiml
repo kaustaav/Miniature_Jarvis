@@ -1,0 +1,87 @@
+<aiml version="1.0.1" encoding="UTF-8">
+<!-- shut_down.aiml -->
+
+    <category>
+        <pattern>SHUTDOWN</pattern>
+        <template>
+            python shut_down.py
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SHUTDOWN *</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SHUTDOWN</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SHUTDOWN *</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>    
+
+    <category>
+        <pattern>TURN OFF</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* TURN OFF</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>TURN OFF *</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* TURN OFF *</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>SHUT DOWN</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SHUT DOWN</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>SHUT DOWN *</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SHUT DOWN *</pattern>
+        <template>
+            <srai>SHUTDOWN</srai>
+        </template>
+    </category>
+</aiml>
