@@ -328,6 +328,15 @@ class Command():
             return Shut_Down(self.query)
 
 
+def response_execute(response):
+    if response == "system shut down":
+        Shut_Down()
+    elif ".py" in response:
+        subprocess.call(["python", "shut_down.py"])
+    else:
+        speak(response)
+
+
 def main():
     global mode
     args = get_args()
@@ -341,27 +350,17 @@ def main():
                   "\nInitiating text mode\n")
     kernel = aiml.Kernel()
 
-    if os.path.isfile("bot_brain.brn"):
-        kernel.bootstrap(brainFile="bot_brain.brn")
+    if os.path.isfile("jarvis_brain.brn"):
+        kernel.bootstrap(brainFile="jarvis_brain.brn")
     else:
         kernel.bootstrap(learnFiles="std-startup.xml", commands="load aiml b")
-        kernel.saveBrain("bot_brain.brn")
+        kernel.saveBrain("jarvis_brain.brn")
     hi()
     load_Keywords()
     while True:
         query = takeCommand(mode)
         response = kernel.respond(query)
-        print(response)
-        if '.py' in response:
-            print(1)
-            subprocess.call(["python", "shut_down.py"])
-        else:
-            speak(response)
-    # while(True):
-    #     query = takeCommand(mode)
-    #     task = Command(query)
-    #     tasktype = task.typeDetect()
-    #     tasktype.execute()
+        response_execute(response)
 
 
 if __name__ == "__main__":
