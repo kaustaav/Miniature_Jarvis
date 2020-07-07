@@ -4,7 +4,7 @@
     <category>
         <pattern>INCREASE VOLUME</pattern>
         <template>
-            
+            Sorry sir, I can't change volume levels yet
         </template>
     </category>
     
@@ -25,7 +25,7 @@
     <category>
         <pattern>DECREASE VOLUME</pattern>
         <template>
-            
+            Sorry sir, I can't change volume levels yet
         </template>
     </category>
     
@@ -46,7 +46,7 @@
     <category>
         <pattern>INCREASE VOLUME BY *</pattern>
         <template>
-            
+            Sorry sir, I can't change volume levels yet
         </template>
     </category>
     
@@ -67,7 +67,7 @@
     <category>
         <pattern>DECREASE VOLUME BY *</pattern>
         <template>
-            
+            Sorry sir, I can't change volume levels yet
         </template>
     </category>
     
@@ -88,64 +88,134 @@
     <category>
         <pattern>WHAT IS VOLUME</pattern>
         <template>
-
-        <template>
+            Sorry sir, I don't have access to system volume yet
+        </template>
     </category>
 
     <category>
         <pattern>* WHAT IS VOLUME</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
-        <template>
+        </template>
     </category>
 
     <category>
         <pattern>* WHAT IS * VOLUME</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
-        <template>
+        </template>
     </category>
 
     <category>
         <pattern>* WHAT IS * VOLUME</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
-        <template>
+        </template>
     </category>
 
     <category>
         <pattern>* WHAT IS VOLUME *</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
-        <template>
+        </template>
     </category>
 
     <category>
         <pattern>WHAT IS * VOLUME</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
-        <template>
+        </template>
     </category>
 
     <category>
         <pattern>WHAT IS * VOLUME *</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
-        <template>
+        </template>
     </category>
     
     <category>
         <pattern>SET VOLUME TO *</pattern>
         <template>
-            
-        <template>
+            Sorry sir, I can't change volume levels yet
+        </template>
     </category>
 
     <category>
         <pattern>* SET VOLUME TO *</pattern>
         <template>
             <srai>SET VOLUME TO <star index = "2"/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>SYSTEM MUTE</pattern>
         <template>
+            python volume.py m
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM MUTE</pattern>
+        <template>
+            <srai>SYSTEM MUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM * MUTE</pattern>
+        <template>
+            <srai>SYSTEM MUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM MUTE *</pattern>
+        <template>
+            <srai>SYSTEM MUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM * MUTE *</pattern>
+        <template>
+            <srai>SYSTEM MUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>SYSTEM UNMUTE</pattern>
+        <template>
+            python volume.py u
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM UNMUTE</pattern>
+        <template>
+            <srai>SYSTEM UNMUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM * UNMUTE</pattern>
+        <template>
+            <srai>SYSTEM UNMUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM UNMUTE *</pattern>
+        <template>
+            <srai>SYSTEM UNMUTE</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* SYSTEM * UNMUTE *</pattern>
+        <template>
+            <srai>SYSTEM UNMUTE</srai>
+        </template>
     </category>
 
 </aiml>
