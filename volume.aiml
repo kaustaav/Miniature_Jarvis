@@ -1,0 +1,151 @@
+<aiml version="1.0.1" encoding="UTF-8">
+<!-- basic_chat.aiml -->
+
+    <category>
+        <pattern>INCREASE VOLUME</pattern>
+        <template>
+            
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* INCREASE VOLUME</pattern>
+        <template>
+            <srai>INCREASE VOLUME</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* INCREASE * VOLUME</pattern>
+        <template>
+            <srai>INCREASE VOLUME</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>DECREASE VOLUME</pattern>
+        <template>
+            
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* DECREASE VOLUME</pattern>
+        <template>
+            <srai>DECREASE VOLUME</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* DECREASE * VOLUME</pattern>
+        <template>
+            <srai>DECREASE VOLUME</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>INCREASE VOLUME BY *</pattern>
+        <template>
+            
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* INCREASE VOLUME BY *</pattern>
+        <template>
+            <srai>INCREASE VOLUME BY <star index = "2"/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* INCREASE * VOLUME BY *</pattern>
+        <template>
+            <srai>INCREASE VOLUME BY <star index = "3"/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>DECREASE VOLUME BY *</pattern>
+        <template>
+            
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* DECREASE VOLUME BY *</pattern>
+        <template>
+            <srai>DECREASE VOLUME BY <star index = "2"/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* DECREASE * VOLUME BY *</pattern>
+        <template>
+            <srai>DECREASE VOLUME BY <star index = "3"/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS VOLUME</pattern>
+        <template>
+
+        <template>
+    </category>
+
+    <category>
+        <pattern>* WHAT IS VOLUME</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        <template>
+    </category>
+
+    <category>
+        <pattern>* WHAT IS * VOLUME</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        <template>
+    </category>
+
+    <category>
+        <pattern>* WHAT IS * VOLUME</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        <template>
+    </category>
+
+    <category>
+        <pattern>* WHAT IS VOLUME *</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        <template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS * VOLUME</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        <template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS * VOLUME *</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        <template>
+    </category>
+    
+    <category>
+        <pattern>SET VOLUME TO *</pattern>
+        <template>
+            
+        <template>
+    </category>
+
+    <category>
+        <pattern>* SET VOLUME TO *</pattern>
+        <template>
+            <srai>SET VOLUME TO <star index = "2"/></srai>
+        <template>
+    </category>
+
+</aiml>

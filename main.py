@@ -332,7 +332,7 @@ def response_execute(response):
     if response == "system shut down":
         Shut_Down()
     elif ".py" in response:
-        subprocess.call(["python", "shut_down.py"])
+        subprocess.call(response.split())
     else:
         speak(response)
 
