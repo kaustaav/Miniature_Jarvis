@@ -4,7 +4,7 @@
     <category>
         <pattern>INCREASE VOLUME</pattern>
         <template>
-            Sorry sir, I can't change volume levels yet
+            python volume.py i
         </template>
     </category>
     
@@ -25,7 +25,7 @@
     <category>
         <pattern>DECREASE VOLUME</pattern>
         <template>
-            Sorry sir, I can't change volume levels yet
+            python volume.py d
         </template>
     </category>
     
@@ -46,7 +46,7 @@
     <category>
         <pattern>INCREASE VOLUME BY *</pattern>
         <template>
-            Sorry sir, I can't change volume levels yet
+            python volume.py in <star/>
         </template>
     </category>
     
@@ -67,7 +67,7 @@
     <category>
         <pattern>DECREASE VOLUME BY *</pattern>
         <template>
-            Sorry sir, I can't change volume levels yet
+            python volume.py de <star/>
         </template>
     </category>
     
@@ -88,19 +88,26 @@
     <category>
         <pattern>WHAT IS VOLUME</pattern>
         <template>
-            Sorry sir, I don't have access to system volume yet
+            python volume.py g
         </template>
     </category>
 
     <category>
-        <pattern>* WHAT IS VOLUME</pattern>
+        <pattern>* WHAT IS * VOLUME *</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
         </template>
     </category>
 
     <category>
-        <pattern>* WHAT IS * VOLUME</pattern>
+        <pattern>WHAT IS VOLUME *</pattern>
+        <template>
+            <srai>WHAT IS VOLUME</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* WHAT IS VOLUME</pattern>
         <template>
             <srai>WHAT IS VOLUME</srai>
         </template>
@@ -137,7 +144,7 @@
     <category>
         <pattern>SET VOLUME TO *</pattern>
         <template>
-            Sorry sir, I can't change volume levels yet
+            python volume.py s <star/>
         </template>
     </category>
 
