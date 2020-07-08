@@ -5,10 +5,8 @@
         <pattern>CHANGE WALLPAPER</pattern>
         <template>
             <random>
-               <li>Sure thing!</li>
                <li>Right away, sir!</li>
-               <li>On it!</li>
-               <li>Changed the wallpaper, sir!</li>
+               <li>Changed the wallpapersir!</li>
             </random>
             <system>python change_wallpaper.py</system>
         </template>

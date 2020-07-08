@@ -7,7 +7,6 @@ import wikipedia
 from spellchecker import SpellChecker
 import argparse
 import aiml
-import subprocess
 # import sys
 # import smtplib
 
