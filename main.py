@@ -331,8 +331,6 @@ class Command():
 def response_execute(response):
     if response == "system shut down":
         Shut_Down()
-    elif ".py" in response:
-        subprocess.call(response.split())
     else:
         speak(response)
 

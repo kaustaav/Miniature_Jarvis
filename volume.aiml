@@ -4,7 +4,7 @@
     <category>
         <pattern>INCREASE VOLUME</pattern>
         <template>
-            python volume.py i
+            <system>python volume.py i</system>
         </template>
     </category>
     
@@ -25,7 +25,7 @@
     <category>
         <pattern>DECREASE VOLUME</pattern>
         <template>
-            python volume.py d
+            <system>python volume.py d</system>
         </template>
     </category>
     
@@ -46,7 +46,7 @@
     <category>
         <pattern>INCREASE VOLUME BY *</pattern>
         <template>
-            python volume.py in <star/>
+            <system>python volume.py in <star/></system>
         </template>
     </category>
     
@@ -67,7 +67,7 @@
     <category>
         <pattern>DECREASE VOLUME BY *</pattern>
         <template>
-            python volume.py de <star/>
+            <system>python volume.py de <star/></system>
         </template>
     </category>
     
@@ -88,7 +88,7 @@
     <category>
         <pattern>WHAT IS VOLUME</pattern>
         <template>
-            python volume.py g
+            <system>python volume.py g</system>
         </template>
     </category>
 
@@ -144,7 +144,7 @@
     <category>
         <pattern>SET VOLUME TO *</pattern>
         <template>
-            python volume.py s <star/>
+            <system>python volume.py s <star/></system>
         </template>
     </category>
 
@@ -158,7 +158,7 @@
     <category>
         <pattern>SYSTEM MUTE</pattern>
         <template>
-            python volume.py m
+            <system>python volume.py m</system>
         </template>
     </category>
 
@@ -193,7 +193,7 @@
     <category>
         <pattern>SYSTEM UNMUTE</pattern>
         <template>
-            python volume.py u
+            <system>python volume.py u</system>
         </template>
     </category>
 
