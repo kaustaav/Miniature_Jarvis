@@ -280,12 +280,13 @@ def Shut_Down():
     speak("Saving Changes...")
 
     def save_words():
-        s = '\n'
-        new_words = s.join(new_wordlist)
-        with open("./keywords.txt", "a") as f:
-            f.write('\n')
-            f.write(new_words)
-            f.close()
+        if len(new_wordlist) > 0:
+            s = '\n'
+            new_words = s.join(new_wordlist)
+            with open("./keywords.txt", "a") as f:
+                f.write('\n')
+                f.write(new_words)
+                f.close()
 
     def turn_off():
         speak("Turning off...")
