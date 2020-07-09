@@ -1,9 +1,6 @@
 import pyttsx3
 import re
-import datetime
 import os
-import webbrowser
-import wikipedia
 from spellchecker import SpellChecker
 import argparse
 import aiml
@@ -26,7 +23,7 @@ url_SOF = "https://stackoverflow.com"
 """
 
 mode = "text"
-spell = SpellChecker()
+spell = SpellChecker(case_sensitive=True)
 new_wordlist = []
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -85,7 +82,7 @@ def takeCommand(mode):
         response = listen()
     else:
         response = text_input()
-    return response.lower()
+    return response
 
 
 """
@@ -130,150 +127,9 @@ def add_wordlist(query):
         add_keyword(word)
 
 
-"""
-    all the functions that are to be performed begins from here
-"""
-
-
-class FuncClass():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute():
-        pass
-
-
-class wishMe():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        hour = int(datetime.datetime.now().hour)
-        if hour >= 5 and hour < 12:
-            speak("Good Morning!")
-        elif(hour >= 12 and hour < 18):
-            speak("Good Afternoon!")
-        else:
-            speak("Good Evening!")
-
-
-class TimeNow():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        if 'exact' in self.query or 'accurate' in self.query:
-            timestr = datetime.datetime.now().strftime("%H:%M:%S")
-        else:
-            timestr = datetime.datetime.now().strftime("%H:%M")
-        speak(f"Sir, it is {timestr}")
-
-
-def hi():
-    # speak("Hello. I am Beymax, your personal healthcare companion")
+def initiate():
+    load_Keywords()
     speak("Hello Sir, I am Jarvis.")
-
-
-class openGoogle():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        speak("Opening Google")
-        webbrowser.get('windows-default').open(url_google)
-
-
-class openYtube():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        speak("Opening Youtube")
-        webbrowser.get('windows-default').open(url_youtube)
-
-
-class openSOF():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        speak("Opening StackOverFlow")
-        webbrowser.get('windows-default').open(url_SOF)
-
-
-class wikisearch():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        speak("searching wikipedia")
-        query = self.query.replace("wikipedia", "")
-        query = self.query.replace("search", "")
-        results = wikipedia.summary(query, sentences=2)
-        speak("According to wikipedia")
-        speak(results)
-        # speak("would you like to know more?")
-        speak("Sorry sir, you have not added further code to open wikipedia")
-
-
-class playMusic():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        speak("Sir, where should i play from?...offline music, Ganna, YouTube or\
- Spotify")
-        source = takeCommand(mode)
-        if "ganna" in source:
-            speak("Opening Ganna")
-            webbrowser.get('windows-default').open(url_ganna)
-        elif "youtube" in source:
-            openYtube()
-        elif "spotify" in source:
-            speak("Opening Spotify")
-            webbrowser.get('windows-default').open(url_spotify)
-        elif("offline" in source or "ofline" in source or "of line" in source
-             or "off line" in source):
-            music_dir = "D:/Music"
-            songs = os.listdir(music_dir)
-            print(songs)
-
-
-class collect_words_from_book():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        speak("Copy paste the path. I can only read from text files for now")
-        path = input("Enter the path: ")
-        path = path.replace('\\', '/')
-        print(path)
-        speak("To-do list: you have not added method to capture the words yet")
-
-
-class Add_wordlist():
-
-    def __init__(self, query):
-        self.query = query
-
-    def execute(self):
-        # wordlist = self.inc_query.split()
-        # correction = self.query.split()
-        # for i in range(len(wordlist)):
-        #     correct = correction[i]
-        #     if(correct == 'add' or correct == 'keyword'):
-        #         wordlist[i] = correct
-        # add_wordlist(wordlist)
-        add_wordlist(self.query)
 
 
 def Shut_Down():
@@ -299,34 +155,6 @@ def Shut_Down():
 """
     Defining the type of command
 """
-
-
-class Command():
-
-    def __init__(self, query):
-        self.query = query
-
-    def typeDetect(self):
-        if "hello jarvis" in self.query or "hey jarvis" in self.query:
-            return wishMe(self.query)
-        elif "wikipedia" in self.query:
-            return wikisearch(self.query)
-        elif "the time" in self.query:
-            return TimeNow(self.query)
-        elif "open google" in self.query:
-            return openGoogle(self.query)
-        elif "play music" in self.query:
-            return playMusic(self.query)
-        elif "open youtube" in self.query:
-            return openYtube(self.query)
-        elif "open stackoverflow" in self.query:
-            return openSOF(self.query)
-        elif "add" in self.query and "keyword" in self.query:
-            return Add_wordlist(self.query)
-        elif "read" in self.query and "book" in self.query:
-            return collect_words_from_book(self.query)
-        elif "shut down" in self.query or "shutdown" in self.query:
-            return Shut_Down(self.query)
 
 
 def response_execute(response):
@@ -357,8 +185,7 @@ def main():
     else:
         kernel.bootstrap(learnFiles="std-startup.xml", commands="load aiml b")
         kernel.saveBrain("jarvis_brain.brn")
-    load_Keywords()
-    hi()
+    initiate()
     while True:
         query = takeCommand(mode)
         response = kernel.respond(query)

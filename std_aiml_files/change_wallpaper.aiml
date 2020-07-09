@@ -1,5 +1,5 @@
 <aiml version="1.0.1" encoding="UTF-8">
-<!-- basic_chat.aiml -->
+<!-- change_wallpaper.aiml -->
 
     <category>
         <pattern>CHANGE WALLPAPER</pattern>
