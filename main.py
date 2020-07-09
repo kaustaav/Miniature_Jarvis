@@ -117,7 +117,8 @@ def load_Keywords():
 
 
 def add_keyword(keyword):
-    global new_keyword
+    global new_wordlist
+    global spell
     if spell[keyword] == 0:
         spell.word_frequency.add(keyword)
         new_wordlist.append(keyword)
@@ -331,6 +332,9 @@ class Command():
 def response_execute(response):
     if response == "system shut down":
         Shut_Down()
+    elif 'adding keyword ' in response:
+        response = response.replace('adding keyword ', '')
+        add_wordlist(response.split())
     else:
         speak(response)
 
@@ -353,8 +357,8 @@ def main():
     else:
         kernel.bootstrap(learnFiles="std-startup.xml", commands="load aiml b")
         kernel.saveBrain("jarvis_brain.brn")
-    hi()
     load_Keywords()
+    hi()
     while True:
         query = takeCommand(mode)
         response = kernel.respond(query)

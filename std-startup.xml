@@ -2,7 +2,7 @@
     <category>
         <pattern>LOAD AIML B</pattern>
         <template>
-            <learn>*.aiml</learn>
+            <learn>std_aiml_files/*.aiml</learn>
         </template>    
     </category>
 </aiml>

@@ -1,0 +1,32 @@
+<aiml version="1.0.1" encoding="UTF-8">
+<!-- basic_chat.aiml -->
+
+    <category>
+        <pattern>APPEND KEYWORD *</pattern>
+        <template>
+            adding keyword <star/>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* APPEND KEYWORD *</pattern>
+        <template>
+            <srai>APPEND KEYWORD <star index = '2'/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* APPEND * KEYWORD *</pattern>
+        <template>
+            <srai>APPEND KEYWORD <star index = '3'/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>APPEND * KEYWORD *</pattern>
+        <template>
+            <srai>APPEND KEYWORD <star index = '2'/></srai>
+        </template>
+    </category>
+    
+</aiml>

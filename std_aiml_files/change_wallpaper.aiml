@@ -32,5 +32,19 @@
             <srai>CHANGE WALLPAPER</srai>
         </template>
     </category>
+
+    <category>
+        <pattern>* CHANGE * WALLPAPER *</pattern>
+        <template>
+            <srai>CHANGE WALLPAPER</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>CHANGE * WALLPAPER *</pattern>
+        <template>
+            <srai>CHANGE WALLPAPER</srai>
+        </template>
+    </category>
     
 </aiml>
