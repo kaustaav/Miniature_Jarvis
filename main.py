@@ -8,16 +8,6 @@ import aiml
 # import smtplib
 
 """
-    List of URL's
-"""
-
-url_google = "http://www.google.com"
-url_ganna = "https://gaana.com"
-url_youtube = "http://www.youtube.com"
-url_spotify = "https://www.spotify.com/in"
-url_SOF = "https://stackoverflow.com"
-
-"""
     List of neccesary global parameters
     that we need access throughout the code
 """
