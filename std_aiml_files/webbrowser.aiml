@@ -1,0 +1,46 @@
+<aiml version="1.0.1" encoding="UTF-8">
+<!-- webbrowser.aiml -->
+
+    <category>
+        <pattern>OPEN *</pattern>
+        <template>
+            <system>python webBrowser.py <star/></system>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* OPEN *</pattern>
+        <template>
+            <srai>OPEN <star index = '2'/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>OPEN * IN *</pattern>
+        <template>
+            <srai>OPEN <star index = '1'/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* OPEN * IN *</pattern>
+        <template>
+            <srai>OPEN <star index = '2'/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* OPEN * FOR *</pattern>
+        <template>
+            <srai>OPEN <star index = '2'/></srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>OPEN * FOR *</pattern>
+        <template>
+            <srai>OPEN <star index = '1'/></srai>
+        </template>
+    </category>
+    
+</aiml>

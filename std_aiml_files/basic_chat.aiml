@@ -1,4 +1,4 @@
-<aiml version="1.0.1" encoding="UTF-8">
+<aiml version="2.0" encoding="UTF-8">
 <!-- basic_chat.aiml -->
 
     <category>
@@ -6,6 +6,10 @@
         <template>
             Well, hello!
         </template>
+        <button>
+            <text>Visit Us</text>
+            <url>https://home.pandorabots.com</url>
+        </button>
     </category>
     
     <category>

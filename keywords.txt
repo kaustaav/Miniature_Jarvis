@@ -1,7 +1,8 @@
 jarvis
-ganna
+gaana
 spotify
 youtube
 google
 microsoft
 stackoverflow
+unmute
