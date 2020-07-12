@@ -6,12 +6,12 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import os
 
-urls = [{'name': 'google', 'url': 'http://www.google.com'},
-        {'name': 'youtube', 'url': 'http://www.youtube.com'},
-        {'name': 'spotify', 'url': 'https://www.spotify.com/in'},
-        {'name': 'gaana', 'url': 'https://gaana.com'},
-        {'name': 'stackoverflow', 'url': 'https://stackoverflow.com'},
-        {'name': 'googlemaps', 'url': 'https://www.google.com/maps'}]
+urls = [{'name': 'Google', 'url': 'http://www.google.com'},
+        {'name': 'Youtube', 'url': 'http://www.youtube.com'},
+        {'name': 'Spotify', 'url': 'https://www.spotify.com/in'},
+        {'name': 'Gaana', 'url': 'https://gaana.com'},
+        {'name': 'Stackoverflow', 'url': 'https://stackoverflow.com'},
+        {'name': 'Google Maps', 'url': 'https://www.google.com/maps'}]
 
 
 def open_item(query):
@@ -26,7 +26,7 @@ def open_item(query):
                         open_app(name, f"C:/Users/{user}/Desktop/{file}")
                         return
     for site in urls:
-        if query1 in site['name']:
+        if query1 in site['name'].replace(" ", "").lower():
             open_web(site['name'], site['url'])
             return
     open_additional(query, query1)
