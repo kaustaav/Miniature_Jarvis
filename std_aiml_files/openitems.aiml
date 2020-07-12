@@ -4,7 +4,7 @@
     <category>
         <pattern>OPEN *</pattern>
         <template>
-            <system>python webBrowser.py <star/></system>
+            <system>python openitems.py <star/></system>
         </template>
     </category>
     
