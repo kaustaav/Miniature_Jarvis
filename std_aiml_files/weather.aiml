@@ -1,0 +1,32 @@
+<aiml version="1.0.1" encoding="UTF-8">
+<!-- weather.aiml -->
+
+    <category>
+        <pattern>WEATHER</pattern>
+        <template>
+            <system>python weather.py weather report</system>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>* WEATHER</pattern>
+        <template>
+            <system>python weather.py <star/> weather</system>
+        </template>
+    </category>
+
+    <category>
+        <pattern>WEATHER *</pattern>
+        <template>
+            <system>python weather.py weather <star/></system>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* WEATHER *</pattern>
+        <template>
+            <system>python weather.py <star index="1"/> weather <star index="2"/></system>
+        </template>
+    </category>
+    
+</aiml>
