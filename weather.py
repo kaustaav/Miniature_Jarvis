@@ -6,14 +6,12 @@ from main import speak
 
 
 def weather_report(query):
+    query = '+'.join(query).lower()
     if 'hey' in query:
-        query.remove('hey')
+        query = query.replace('hey', "")
     if 'jarvis' in query:
-        query.remove('jarvis')
-    if 'Jarvis' in query:
-        query.remove('Jarvis')
+        query = query.replace('jarvis', "")
     base_url = "https://www.google.com/search?q="
-    query = '+'.join(query)
     headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/\
 537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
     URL = base_url + query
