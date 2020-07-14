@@ -11,7 +11,8 @@ urls = [{'name': 'Google', 'url': 'http://www.google.com'},
         {'name': 'Spotify', 'url': 'https://www.spotify.com/in'},
         {'name': 'Gaana', 'url': 'https://gaana.com'},
         {'name': 'Stackoverflow', 'url': 'https://stackoverflow.com'},
-        {'name': 'Google Maps', 'url': 'https://www.google.com/maps'}]
+        {'name': 'Google Maps', 'url': 'https://www.google.com/maps'},
+        {'name': 'WhatsApp', 'url': 'https://web.whatsapp.com/'}]
 
 
 def open_item(query):
